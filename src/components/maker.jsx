@@ -76,6 +76,7 @@ const Maker = (props) => {
       <Header onLogout={onLogout} />
       <div className={styles.container}>
         <Editor
+          FileInput={props.FileInput}
           cards={cards}
           addCard={CreateOrUpdateCard}
           updateCard={CreateOrUpdateCard}

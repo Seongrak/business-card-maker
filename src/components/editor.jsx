@@ -8,13 +8,14 @@ const Editor = (props) => (
     <h1 className={styles.title}>Card Maker</h1>
     {Object.keys(props.cards).map((key) => (
       <CardEditForm
+        FileInput={props.FileInput}
         key={key}
         card={props.cards[key]}
         updateCard={props.updateCard}
         deleteCard={props.deleteCard}
       />
     ))}
-    <CardAddForm onAdd={props.addCard} />
+    <CardAddForm FileInput={props.FileInput} onAdd={props.addCard} />
   </section>
 );
 

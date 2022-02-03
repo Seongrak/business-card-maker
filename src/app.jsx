@@ -4,13 +4,16 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Maker from "./components/maker";
 
-function App({ authService }) {
+function App({ FileInput, authService }) {
   return (
     <div className={styles.app}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login authService={authService} />} />
-          <Route path="/maker" element={<Maker authService={authService} />} />
+          <Route
+            path="/maker"
+            element={<Maker FileInput={FileInput} authService={authService} />}
+          />
         </Routes>
       </BrowserRouter>
     </div>

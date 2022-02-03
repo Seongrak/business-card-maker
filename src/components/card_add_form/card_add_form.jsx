@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
 import Button from "../button/button";
-import ImageFileInput from "../image_file_input/image_file_input";
 import styles from "./card_add_form.module.css";
 
 const CardAddForm = (props) => {
@@ -77,7 +76,7 @@ const CardAddForm = (props) => {
         placeholder="Message"
       ></textarea>
       <div className={styles.fileInput}>
-        <ImageFileInput />
+        <props.FileInput />
       </div>
       <Button name="Add" onClick={onSubmit} />
     </form>
