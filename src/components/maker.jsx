@@ -6,7 +6,7 @@ import Header from "./header";
 import styles from "./maker.module.css";
 import Preview from "./preview";
 
-const Maker = (props) => {
+const Maker = ({ FileInput, authService }) => {
   const [cards, setCards] = useState({
     1: {
       id: "1",
@@ -45,11 +45,11 @@ const Maker = (props) => {
 
   const navigate = useNavigate();
   const onLogout = () => {
-    props.authService.logout();
+    authService.logout();
   };
 
   useEffect(() => {
-    props.authService.onAuthChange((user) => {
+    authService.onAuthChange((user) => {
       if (!user) {
         navigate("/");
       }
@@ -76,7 +76,7 @@ const Maker = (props) => {
       <Header onLogout={onLogout} />
       <div className={styles.container}>
         <Editor
-          FileInput={props.FileInput}
+          FileInput={FileInput}
           cards={cards}
           addCard={CreateOrUpdateCard}
           updateCard={CreateOrUpdateCard}

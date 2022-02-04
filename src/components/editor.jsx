@@ -3,19 +3,19 @@ import CardAddForm from "./card_add_form/card_add_form";
 import CardEditForm from "./card_edit_form/card_edit_form";
 import styles from "./editor.module.css";
 
-const Editor = (props) => (
+const Editor = ({ FileInput, cards, updateCard, deleteCard, addCard }) => (
   <section className={styles.editor}>
     <h1 className={styles.title}>Card Maker</h1>
-    {Object.keys(props.cards).map((key) => (
+    {Object.keys(cards).map((key) => (
       <CardEditForm
-        FileInput={props.FileInput}
+        FileInput={FileInput}
         key={key}
-        card={props.cards[key]}
-        updateCard={props.updateCard}
-        deleteCard={props.deleteCard}
+        card={cards[key]}
+        updateCard={updateCard}
+        deleteCard={deleteCard}
       />
     ))}
-    <CardAddForm FileInput={props.FileInput} onAdd={props.addCard} />
+    <CardAddForm FileInput={FileInput} onAdd={addCard} />
   </section>
 );
 
