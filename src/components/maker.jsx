@@ -61,7 +61,7 @@ const Maker = ({ FileInput, authService, cardRepository }) => {
         navigate("/");
       }
     });
-  });
+  }, [userId, authService, navigate]);
 
   // Sync
   useEffect(() => {
@@ -72,7 +72,7 @@ const Maker = ({ FileInput, authService, cardRepository }) => {
       setCards(cards);
     });
     return () => stopSync();
-  }, [userId]);
+  }, [userId, cardRepository]);
 
   const CreateOrUpdateCard = (card) => {
     setCards((cards) => {
