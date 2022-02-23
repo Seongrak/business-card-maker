@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Editor from "./editor";
 import Footer from "./footer";
 import Header from "./header";
 import styles from "./maker.module.css";
 import Preview from "./preview";
 
-const Maker = ({ FileInput, authService }) => {
+const Maker = ({ FileInput, authService, cardRepository }) => {
   const [cards, setCards] = useState({
+    /*
     1: {
       id: "1",
       name: "Rocky-test",
@@ -41,20 +42,37 @@ const Maker = ({ FileInput, authService }) => {
       fileName: "rocky",
       fileURL: "",
     },
+    */
   });
+  const historyState = useLocation().state;
+  const [userId, setUserId] = useState(historyState && historyState.id);
 
   const navigate = useNavigate();
   const onLogout = () => {
     authService.logout();
   };
 
+  // Login
   useEffect(() => {
     authService.onAuthChange((user) => {
-      if (!user) {
+      if (user) {
+        setUserId(user.uid);
+      } else {
         navigate("/");
       }
     });
   });
+
+  // Sync
+  useEffect(() => {
+    if (!userId) {
+      return;
+    }
+    const stopSync = cardRepository.syncCards(userId, (cards) => {
+      setCards(cards);
+    });
+    return () => stopSync();
+  }, [userId]);
 
   const CreateOrUpdateCard = (card) => {
     setCards((cards) => {
@@ -62,6 +80,7 @@ const Maker = ({ FileInput, authService }) => {
       updated[card.id] = card;
       return updated;
     });
+    cardRepository.saveCard(userId, card);
   };
 
   const deleteCard = (card) => {
@@ -70,6 +89,7 @@ const Maker = ({ FileInput, authService }) => {
       delete updated[card.id];
       return updated;
     });
+    cardRepository.removeCard(userId, card);
   };
   return (
     <section className={styles.maker}>
