@@ -9,9 +9,12 @@ function App({ FileInput, authService, cardRepository }) {
     <div className={styles.app}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login authService={authService} />} />
           <Route
-            path="/maker"
+            path="/business-card-maker/"
+            element={<Login authService={authService} />}
+          />
+          <Route
+            path="/business-card-maker/maker"
             element={
               <Maker
                 FileInput={FileInput}

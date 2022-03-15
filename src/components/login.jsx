@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const Login = ({ authService }) => {
   const navigate = useNavigate();
   const goToMaker = (userId) => {
-    navigate("/maker", { state: { id: userId } });
+    navigate("/business-card-maker/maker", { state: { id: userId } });
   };
 
   const onLogin = (event) => {
